@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="src/style.css" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD"
+      crossorigin="anonymous"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Archivo&family=DM+Sans:wght@400;700&family=Open+Sans:wght@300;400;500;600;700;800&family=Roboto:wght@100;300;400;500;700&family=Rubik+Vinyl&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://unpkg.com/axios@1.6.7/dist/axios.min.js"></script>
+    <title>Document</title>
+  </head>
+  <body>
+    <div class="app">
+      <div class="top-block">
+        <div class="row">
+          <div class="col">
+            <h2 class="head-top-block">Weather forecast</h2>
+            <p class="current-date">Friday 23th December 2022, 17:30</p>
+          </div>
+          <div class="col search-form">
+            <form class="form">
+              <input
+                class="form-input"
+                type="text"
+                placeholder="Search city here"
+              />
+              <button type="submit" class="btn-search">
+                <img
+                  class="search-icon"
+                  src="img/search-icon.svg"
+                  alt="search"
+                />
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+      <div class="current-weather-block">
+        <div class="row">
+          <div class="col">
+            <h1 class="current-city">Lyon, France</h1>
+            <div class="row">
+              <p class="col-3 degree">14</p>
+              <div class="col text-center measurement">
+                <span class="celsius">°C</span>
+                <span>|</span>
+                <span class="fahrenheit">°F</span>
+              </div>
+            </div>
+          </div>
+          <div class="col weather-img">
+            <img class="weather-icon" src="img/cloud-sun.svg" alt="cloud-sun" />
+          </div>
+          <div class="col weather-parameters">
+            <p>Precipitation: 74%</p>
+            <p>Humidity: 79%</p>
+            <p>Wind: 11 km/h</p>
+          </div>
+        </div>
+      </div>
+      <div class="week-weather-block">
+        <div class="week-weather-block-card">
+          <p class="card-day">Sat</p>
+          <img
+            class="card-weather-icon"
+            src="img/cloud-sun-small-rain.svg"
+            alt=""
+          />
+          <p class="card-degree">15°</p>
+        </div>
+        <div class="week-weather-block-card">
+          <p class="card-day">Sun</p>
+          <img class="card-weather-icon" src="img/cloud-rain-3.svg" alt="" />
+          <p class="card-degree">10°</p>
+        </div>
+        <div class="week-weather-block-card">
+          <p class="card-day">Mon</p>
+          <img class="card-weather-icon" src="img/cloud-fog.svg" alt="" />
+          <p class="card-degree">9°</p>
+        </div>
+        <div class="week-weather-block-card">
+          <p class="card-day">Tue</p>
+          <img
+            class="card-weather-icon"
+            src="img/cloud-sun-snowflake.svg"
+            alt=""
+          />
+          <p class="card-degree">-3°</p>
+        </div>
+        <div class="week-weather-block-card">
+          <p class="card-day">Wed</p>
+          <img class="card-weather-icon" src="img/wind.svg" alt="" />
+          <p class="card-degree">0°</p>
+        </div>
+      </div>
+    </div>
+
+    <script src="src/script.js"></script>
+  </body>
+</html>
