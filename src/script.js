@@ -36,6 +36,9 @@
   const degree = document.querySelector(".degree");
   const fahrenheit = document.querySelector(".fahrenheit");
   const celsius = document.querySelector(".celsius");
+  const humidity = document.querySelector(".Humidity");
+  const wind = document.querySelector(".Wind");
+  const feelsL = document.querySelector(".Feels_like");
 
   function currentDate() {
     const today = document.querySelector(".current-date");
@@ -75,9 +78,27 @@
     degree.innerHTML = `${temperature}`;
   }
 
+  function showHumidity(response) {
+    const humidityCurrent = response.data?.temperature?.humidity || 0;
+    humidity.innerHTML = `Humidity: ${humidityCurrent}%`;
+  }
+
+  function showWind(response) {
+    const windCurrent = response.data?.wind?.speed || 0;
+    wind.innerHTML = `Wind: ${windCurrent}km/h`;
+  }
+
+  function feelsLike(response) {
+    const feelsLikeCurrent = response.data?.temperature?.feels_like || 0;
+    feelsL.innerHTML = `Feels Like ${feelsLikeCurrent}`;
+  }
+
   function fetchData(city) {
     const apiUrl = `https://api.shecodes.io/weather/v1/current?query=${city}&key=${apiKey}`;
     axios.get(apiUrl).then(showTemperature);
+    axios.get(apiUrl).then(showHumidity);
+    axios.get(apiUrl).then(showWind);
+    axios.get(apiUrl).then(feelsLike);
   }
 
   function updateData(event) {

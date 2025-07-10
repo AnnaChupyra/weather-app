@@ -171,3 +171,17 @@
   padding-bottom: 0;
   margin-bottom: 0;
 }
+
+.sources {
+  margin: 30px;
+  padding: 0 25px 0 25px;
+  color: white;
+  font-family: "Roboto", sans-serif;
+  font-weight: 300;
+  font-size: 16px;
+}
+
+.sources a {
+  color: white;
+  font-weight: 400;
+}
