@@ -90,8 +90,31 @@
 
   function feelsLike(response) {
     const feelsLikeCurrent = response.data?.temperature?.feels_like || 0;
-    feelsL.innerHTML = `Feels Like ${feelsLikeCurrent}`;
+    feelsL.innerHTML = `Feels Like: ${feelsLikeCurrent}`;
   }
+
+  function displayForecast() {
+    let forecastElement = document.querySelector(".week-weather-block");
+
+    let days = ["Tue", "Wed", "Thu", "Fri", "Sat"];
+    let forecastHtml = "";
+
+    days.forEach(function (day) {
+      forecastHtml =
+        forecastHtml +
+        `<div class="week-weather-block-card">
+        <p class="card-day">${day}</p>
+        <img
+          class="card-weather-icon"
+          src="img/cloud-sun-small-rain.svg"
+          alt=""
+        />
+        <p class="card-degree">15°</p>
+      </div>`;
+    });
+    forecastElement.innerHTML = forecastHtml;
+  }
+  displayForecast();
 
   function fetchData(city) {
     const apiUrl = `https://api.shecodes.io/weather/v1/current?query=${city}&key=${apiKey}`;
