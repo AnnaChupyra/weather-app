@@ -4,7 +4,7 @@
     "Sunday",
     "Monday",
     "Tuesday",
-    "Wednersday",
+    "Wednesday",
     "Thursday",
     "Friday",
     "Saturday",
@@ -85,7 +85,7 @@
 
   function showWind(response) {
     const windCurrent = response.data?.wind?.speed || 0;
-    wind.innerHTML = `Wind: ${windCurrent}km/h`;
+    wind.innerHTML = `Wind: ${windCurrent} km/h`;
   }
 
   function feelsLike(response) {
@@ -93,31 +93,48 @@
     feelsL.innerHTML = `Feels Like: ${feelsLikeCurrent}`;
   }
 
-  function displayForecast() {
+  function formatDay(timestamp) {
+    let date = new Date(timestamp * 1000);
+    let days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+    return days[date.getDay()];
+  }
+
+  function getForecast(city) {
+    const apiKey = "d25te0840b6ed82ad3bbo7b9360f4674";
+    const apiUrl = `https://api.shecodes.io/weather/v1/forecast?query=${city}&key=${apiKey}&units=metric`;
+    axios.get(apiUrl).then(displayForecast);
+  }
+
+  function displayForecast(response) {
+    console.log(response.data);
     let forecastElement = document.querySelector(".week-weather-block");
 
-    let days = ["Tue", "Wed", "Thu", "Fri", "Sat"];
     let forecastHtml = "";
 
-    days.forEach(function (day) {
-      forecastHtml =
-        forecastHtml +
-        `<div class="week-weather-block-card">
-        <p class="card-day">${day}</p>
+    response.data.daily.forEach(function (day, index) {
+      if (index < 5) {
+        forecastHtml =
+          forecastHtml +
+          `<div class="week-weather-block-card">
+        <p class="card-day">${formatDay(day.time)}</p>
         <img
           class="card-weather-icon"
-          src="img/cloud-sun-small-rain.svg"
+          src="${day.condition.icon_url}"
           alt=""
         />
-        <p class="card-degree">15°</p>
+        <div class="card-degree">
+          <p>${Math.round(day.temperature.maximum)}°</p>
+          <p>${Math.round(day.temperature.minimum)}°</p>
+        </div>
       </div>`;
+      }
     });
     forecastElement.innerHTML = forecastHtml;
   }
   displayForecast();
 
   function fetchData(city) {
-    const apiUrl = `https://api.shecodes.io/weather/v1/current?query=${city}&key=${apiKey}`;
+    const apiUrl = `https://api.shecodes.io/weather/v1/current?query=${city}&key=${apiKey}&units=metric`;
     axios.get(apiUrl).then(showTemperature);
     axios.get(apiUrl).then(showHumidity);
     axios.get(apiUrl).then(showWind);
@@ -127,6 +144,7 @@
   function updateData(event) {
     const city = currentCity(event);
     fetchData(city);
+    getForecast(city);
   }
 
   cityForm.addEventListener("submit", updateData);
