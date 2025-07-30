@@ -39,6 +39,7 @@
   const humidity = document.querySelector(".Humidity");
   const wind = document.querySelector(".Wind");
   const feelsL = document.querySelector(".Feels_like");
+  let lastTemperatureShown = "";
 
   function currentDate() {
     const today = document.querySelector(".current-date");
@@ -61,14 +62,20 @@
 
   function fahrenheiT(event) {
     event.preventDefault();
-    degree.innerHTML = getDegreeValue() * 1.8 + 32;
+    degree.innerHTML =
+      lastTempShownAs !== "f" ? getDegreeValue() * 1.8 + 32 : getDegreeValue();
+    lastTemperatureShown = "F";
   }
 
   fahrenheit.addEventListener("click", fahrenheiT);
 
   function celsiuS(event) {
     event.preventDefault();
-    degree.innerHTML = getDegreeValue();
+    degree.innerHTML =
+      lastTempShownAs !== "c"
+        ? (getDegreeValue() - 32) / 1.8
+        : getDegreeValue();
+    lastTemperatureShown = "C";
   }
 
   celsius.addEventListener("click", celsiuS);
@@ -76,6 +83,7 @@
   function showTemperature(response) {
     const temperature = Math.round(response.data?.temperature?.current || 0);
     degree.innerHTML = `${temperature}`;
+    lastTemperatureShown = "";
   }
 
   function showHumidity(response) {
@@ -138,7 +146,6 @@
       showHumidity(response);
       showWind(response);
       feelsLike(response);
-      displayForecast();
     });
   }
 
