@@ -106,7 +106,6 @@
   }
 
   function displayForecast(response) {
-    console.log(response.data);
     let forecastElement = document.querySelector(".week-weather-block");
 
     let forecastHtml = "";
@@ -131,14 +130,16 @@
     });
     forecastElement.innerHTML = forecastHtml;
   }
-  displayForecast();
 
   function fetchData(city) {
     const apiUrl = `https://api.shecodes.io/weather/v1/current?query=${city}&key=${apiKey}&units=metric`;
-    axios.get(apiUrl).then(showTemperature);
-    axios.get(apiUrl).then(showHumidity);
-    axios.get(apiUrl).then(showWind);
-    axios.get(apiUrl).then(feelsLike);
+    axios.get(apiUrl).then((response) => {
+      showTemperature(response);
+      showHumidity(response);
+      showWind(response);
+      feelsLike(response);
+      displayForecast();
+    });
   }
 
   function updateData(event) {
