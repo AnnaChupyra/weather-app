@@ -39,7 +39,8 @@
   const humidity = document.querySelector(".Humidity");
   const wind = document.querySelector(".Wind");
   const feelsL = document.querySelector(".Feels_like");
-  let lastTemperatureShown = "C";
+  let lastTempShownAs = "C";
+  let realDegree = 14;
 
   function currentDate() {
     const today = document.querySelector(".current-date");
@@ -62,11 +63,13 @@
 
   function fahrenheiT(event) {
     event.preventDefault();
-    degree.innerHTML =
-      lastTemperatureShown !== "f"
-        ? getDegreeValue() * 1.8 + 32
-        : getDegreeValue();
-    lastTemperatureShown = "F";
+    event.target.classList.add("bold");
+    celsius.classList.remove("bold");
+    realDegree =
+      lastTempShownAs !== "f" ? (realDegree * 9) / 5 + 32 : realDegree;
+    console.log("fahrenheiT", realDegree);
+    degree.innerHTML = Math.floor(realDegree);
+    lastTempShownAs = "f";
   }
 
   fahrenheit.addEventListener("click", fahrenheiT);
@@ -74,11 +77,12 @@
   function celsiuS(event) {
     event.preventDefault();
     event.target.classList.add("bold");
-    degree.innerHTML =
-      lastTemperatureShown !== "c"
-        ? (getDegreeValue() - 32) / 1.8
-        : getDegreeValue();
-    lastTemperatureShown = "C";
+    fahrenheit.classList.remove("bold");
+    realDegree =
+      lastTempShownAs !== "c" ? ((realDegree - 32) * 5) / 9 : realDegree;
+    console.log("celsiuS", realDegree);
+    degree.innerHTML = Math.floor(realDegree);
+    lastTempShownAs = "c";
   }
 
   celsius.addEventListener("click", celsiuS);
@@ -86,7 +90,10 @@
   function showTemperature(response) {
     const temperature = Math.round(response.data?.temperature?.current || 0);
     degree.innerHTML = `${temperature}`;
-    lastTemperatureShown = "C";
+    realDegree = temperature;
+    celsius.classList.add("bold");
+    fahrenheit.classList.remove("bold");
+    lastTempShownAs = "c";
   }
 
   function showHumidity(response) {
@@ -142,6 +149,14 @@
     forecastElement.innerHTML = forecastHtml;
   }
 
+  function todayForecast(response) {
+    console.log(response);
+    let todayForecastElement = document.querySelector(".weather-img");
+    let today = response.data.condition;
+    let iconUrl = today.icon_url;
+    todayForecastElement.innerHTML = `<img class="weather-icon" src='${iconUrl}' alt='' />`;
+  }
+
   function fetchData(city) {
     const apiUrl = `https://api.shecodes.io/weather/v1/current?query=${city}&key=${apiKey}&units=metric`;
     axios.get(apiUrl).then((response) => {
@@ -149,6 +164,7 @@
       showHumidity(response);
       showWind(response);
       feelsLike(response);
+      todayForecast(response);
     });
   }
 

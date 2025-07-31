@@ -156,8 +156,8 @@
 }
 
 .card-weather-icon {
-  width: 85px;
-  height: 85px;
+  width: 100px;
+  height: 100px;
 }
 
 .card-day {
@@ -187,4 +187,8 @@
 .sources a {
   color: white;
   font-weight: 400;
+}
+
+.bold {
+  font-weight: bold;
 }
