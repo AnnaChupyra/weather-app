@@ -186,9 +186,11 @@
 
 .sources a {
   color: white;
-  font-weight: 400;
 }
 
 .bold {
   font-weight: bold;
+}
+
+@media (max-width: 768px) {
 }
